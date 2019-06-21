@@ -1,0 +1,51 @@
+@model List<Activity>
+<h1>Dojo Activity Center</h1>
+<h3>Welcome @ViewBag.Name</h3>
+<a asp-action="Logout">Log Out</a>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Activity</th>
+      <th scope="col">Date and Time</th>
+      <th scope="col">Duration</th>
+      <th scope="col">Event Coordinator</th>
+      <th scope="col">No. of Participants</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var activity in Model)
+    {
+        <tr>
+          <td><a href="activity/@activity.ActivityId">@activity.Name</a></td>
+          <td>@activity.Date.ToShortDateString() at @activity.Time.ToShortTimeString()</td>
+          <td>@activity.Duration @activity.DurationUnit</td>
+          <td>@activity.Coordinator.FirstName</td>
+          <td>@activity.Participants.Count</td>
+          @{
+            if(activity.UserId == ViewBag.User)
+            {
+              <td><a asp-action="DeleteActivity" asp-route-num="@activity.ActivityId"><button>Delete</button></a></td>
+            }
+            else if(activity.Participants.Any(u => u.UserId == ViewBag.User))
+            {
+              <td><a asp-action="LeaveActivity" asp-route-num="@activity.ActivityId"><button>Leave</button></a></td>
+            }
+            else
+            {
+                <td>
+                    <form asp-action="JoinActivity" method="post">
+                        <input type="hidden" name="UserId" value="@ViewBag.User">
+                        <input type="hidden" name="ActivityId" value="@activity.ActivityId">
+                        <button>Join</button>
+                    </form>
+                </td>
+            }
+          }
+        </tr>
+    }
+  </tbody>
+</table>
+
+<a asp-action="AddActivity"><button>Add New Activity</button></a>

@@ -1,0 +1,46 @@
+﻿   
+@model LogRegUser
+<form asp-action="create" asp-controller="Home" method="post">
+    <h1>Register Here</h1>
+    <div class="form-group">
+        <label asp-for="regUser.FirstName" id="regUser.FirstName"></label>
+        <span asp-validation-for="regUser.FirstName" ></span>
+        <input type="text" class="form-control" asp-for="regUser.FirstName" id="regUser.FirstName" >
+    </div>
+    <div class="form-group">
+        <label asp-for="regUser.LastName" id="regUser.LastName"></label>
+        <span asp-validation-for="regUser.LastName" ></span>
+        <input type="text" class="form-control" asp-for="regUser.LastName" id="regUser.LastName" >
+    </div>
+    <div class="form-group">
+        <label asp-for="regUser.Email" id="regUser.Email"></label>
+        <span asp-validation-for="regUser.Email" ></span>
+        <input type="text" class="form-control" asp-for="regUser.Email" id="regUser.Email" >
+    </div>       
+    <div class="form-group">
+        <label asp-for="regUser.Password" id="regUser.Password"></label>
+        <span asp-validation-for="regUser.Password" ></span>
+        <input type="password" class="form-control" asp-for="regUser.Password" id="regUser.Password" >
+    </div> 
+    <div class="form-group">
+        <label asp-for="regUser.Confirm" id="regUser.Confirm"></label>
+        <span asp-validation-for="regUser.Confirm" ></span>
+        <input type="password" class="form-control" asp-for="regUser.Confirm" id="regUser.Confirm" >
+    </div>   
+    <button type="submit">Sign up</button>
+</form>
+
+<form asp-action="login" asp-controller="Home" method="post">
+    <h1>Login Here</h1>
+    <div class="form-group">
+        <label asp-for="formUser.Email" id="formUser.Email"></label>
+        <span asp-validation-for="formUser.Email" ></span>
+        <input type="text" class="form-control" asp-for="formUser.Email" id="formUser.Email" >
+    </div>       
+    <div class="form-group">
+        <label asp-for="formUser.Password" id="formUser.Password"></label>
+        <span asp-validation-for="formUser.Password" ></span>
+        <input type="password" class="form-control" asp-for="formUser.Password" id="formUser.Password" >
+    </div>  
+    <button type="submit">Login</button>
+</form>

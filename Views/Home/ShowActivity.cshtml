@@ -1,0 +1,34 @@
+@model Activity
+<h1>Dojo Activity Center</h1>
+<a asp-action="Home">Home</a>
+<a asp-action="Logout">Log Out</a>
+
+<h2>@Model.Name</h2>
+<p>Event Coordinator: @Model.Coordinator.FirstName</p>
+<p>Description: @Model.Description</p>
+<p>Participants:</p>
+<ul>
+    @foreach (var user in Model.Participants)
+    {
+        <li>@user.User.FirstName</li>
+    }
+</ul>
+
+@{
+    if(Model.UserId == ViewBag.User)
+    {
+        <a asp-action="DeleteActivity" asp-route-num="@Model.ActivityId"><button>Delete</button></a>
+    }
+    else if(Model.Participants.Any(u => u.UserId == ViewBag.User))
+    {
+        <a asp-action="LeaveActivity" asp-route-num="@Model.ActivityId"><button>Leave</button></a>
+    }
+    else
+    {
+        <form asp-action="JoinActivity" method="post">
+            <input type="hidden" name="UserId" value="@ViewBag.User">
+            <input type="hidden" name="ActivityId" value="@Model.ActivityId">
+            <button>Join</button>
+        </form>
+    }
+}
